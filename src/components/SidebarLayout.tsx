@@ -1,6 +1,6 @@
 const SidebarLayout: React.FC = () => {
   return (
-    <div>
+    <div className="">
       
     </div>
   )
