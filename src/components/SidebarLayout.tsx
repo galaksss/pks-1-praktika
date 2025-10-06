@@ -1,3 +1,5 @@
+import { Outlet } from "react-router-dom";
+
 const SidebarLayout: React.FC = () => {
   return (
     <div className="flex h-screen">
@@ -8,7 +10,9 @@ const SidebarLayout: React.FC = () => {
           <a href="" className="hover:underline">Отчеты</a>
         </nav>
       </aside>
-        <main className="flex-1 bg-gray-800 p-1">asasffaf</main>
+        <main className="flex-1 bg-gray-800 p-1">
+          <Outlet />
+        </main>
     </div>
   )
 }
