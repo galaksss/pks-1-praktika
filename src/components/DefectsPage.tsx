@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import SearchIcon from '/close.svg'
 const DefectsPage: React.FC = () => {
   return (
     <div className="p-4">
@@ -9,14 +8,12 @@ const DefectsPage: React.FC = () => {
 
       <div className="flex justify-between">
         <Link to={"newDefect"}>
-          <button className="bg-blue-600 px-3 py-1 rounded mb-4 cursor-pointer hover:bg-blue-700 font-semibold">Новый дефект</button>
-          <SearchIcon />
+          <button className="bg-gray-600 px-3 py-1 rounded mb-4 cursor-pointer font-semibold hover:bg-gray-700">Новый дефект</button>
         </Link>
 
         
         <div className="">
-          <input type="text" className="bg-gray-600 rounded w-130 px-3 py-1" />
-          <img src="/close.svg" alt="" className=""/>
+          <input placeholder="Найти дефект..." type="text" className="bg-gray-600 rounded w-130 px-3 py-1" />
         </div>
 
 
@@ -26,18 +23,6 @@ const DefectsPage: React.FC = () => {
             <option value="">по приоритету</option>
             <option value="">по срокам</option>
           </select>
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div className="space-y-3">

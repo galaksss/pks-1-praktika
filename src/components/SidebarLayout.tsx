@@ -24,7 +24,7 @@ const SidebarLayout: React.FC = () => {
         { isLogined 
         ?        
         <Link to={"profile/id"}>
-          <div className="relative mb-20">
+          <div className="relative mb-5 mr-3">
             <div onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} className="flex items-center">
               <img src="/user-icon.png" alt="" className="w-7" />
               <h3 className="ml-1">Иван (Инженер)</h3>
@@ -34,7 +34,7 @@ const SidebarLayout: React.FC = () => {
         </Link>
         :
         <Link to={"registration"}>
-          <button className="text-lg px-2 py-4 bg-blue-600 w-full rounded-4xl font-medium tracking-wide cursor-pointer mb-20">Войти</button>
+          <button className="text-lg px-2 py-4 bg-blue-600 w-full rounded-4xl font-medium tracking-wide cursor-pointer mb-50">Войти</button>
         </Link>
         }
       </aside>
