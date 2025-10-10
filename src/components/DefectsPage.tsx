@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
+import { selectDefectsData } from "../redux/defectsSlice";
+import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
+  const { items } = useAppSelector(selectDefectsData);
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
 
-
-
       <div className="flex justify-between">
         <Link to={"newDefect"}>
-          <button className="bg-gray-600 px-3 py-1 rounded mb-4 cursor-pointer font-semibold hover:bg-gray-700">Новый дефект</button>
+          <button className="bg-gray-600 px-3 py-1 rounded cursor-pointer font-semibold hover:bg-gray-700">Новый дефект</button>
         </Link>
 
-        
         <div className="">
           <input placeholder="Найти дефект..." type="text" className="bg-gray-600 rounded w-130 px-3 py-1" />
         </div>
-
 
         <div className="font-semibold">
           <label className="mr-1">Сортировка</label>
@@ -25,31 +25,17 @@ const DefectsPage: React.FC = () => {
           </select>
         </div>
       </div>
-      <div className="space-y-3">
-        <Link to={"/defects/2"} className="block">
-          <div className="border p-4 rounded shadow bg-green-800 font-semibold">
-            <h2 className="">Лопнула труба в 3 помещении</h2>
-            <p>
-              Статус: <span className="text-green-300">Исправлено</span>
-            </p>
-          </div>
-        </Link>
-        <Link to={"/defects/2"} className="block">
-          <div className="border p-4 rounded shadow bg-yellow-800 font-semibold">
-            <h2 className="">Протечка на крыше</h2>
-            <p>
-              Статус: <span className="text-yellow-300">В работе</span>
-            </p>
-          </div>
-        </Link>
-        <Link to={"/defects/2"} className="block">
-          <div className="border p-4 rounded shadow bg-red-800 font-semibold">
-            <h2 className="">Не подведено электричество в 1 помещении</h2>
-            <p className="">
-              Статус: <span className="text-red-300">Не исправлено</span>
-            </p>
-          </div>
-        </Link>
+      <div className="mt-5">
+        {items.map((obj, index) => (
+          <Link to={`/defects/${obj.id}`}>
+            <div className={`border p-4 rounded shadow font-semibold ${(obj.status === "Исправлено" && "bg-green-800") || (obj.status === "В работе" && "bg-yellow-800") || (obj.status === "Не исправлено" && "bg-red-800")} ${index < items.length - 1 ? 'mb-3' : ''}`}>
+              <h2 className="">{obj.title}</h2>
+              <p>
+                Статус: <span className={`${(obj.status === "Исправлено" && "text-green-300") || (obj.status === "В работе" && "text-yellow-300") || (obj.status === "Не исправлено" && "text-red-300")}`}>{obj.status}</span>
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ const SidebarLayout: React.FC = () => {
   const [isLogined, setIsLogined] = useState(true)
 
   return (
-    <div className="flex h-screen">
-      <aside className="w-52 bg-blue-900 p-4 flex flex-col justify-between items-center">
+    <div className="">
+      <aside className="h-screen fixed w-52 bg-blue-900 p-4 flex flex-col justify-between items-center">
         <div className="">
           <h2 className="font-bold text-lg mb-5">Система Контроля</h2>
           <nav className="flex flex-col">
@@ -38,7 +38,7 @@ const SidebarLayout: React.FC = () => {
         </Link>
         }
       </aside>
-      <main className="flex-1 bg-gray-800 p-1">
+      <main className="min-h-screen bg-gray-800 pl-52">
         <Outlet />
       </main>
     </div>
