@@ -3,7 +3,6 @@ import { selectDefectsData } from "../redux/defectsSlice";
 import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
   const { items } = useAppSelector(selectDefectsData);
-
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
@@ -22,16 +21,17 @@ const DefectsPage: React.FC = () => {
           <select className="bg-gray-600 rounded">
             <option value="">по приоритету</option>
             <option value="">по срокам</option>
+            <option value="">по статусу</option>
           </select>
         </div>
       </div>
       <div className="mt-5">
         {items.map((obj, index) => (
           <Link to={`/defects/${obj.id}`}>
-            <div className={`border p-4 rounded shadow font-semibold ${(obj.status === "Исправлено" && "bg-green-800") || (obj.status === "В работе" && "bg-yellow-800") || (obj.status === "Не исправлено" && "bg-red-800")} ${index < items.length - 1 ? 'mb-3' : ''}`}>
+            <div className={`border p-4 rounded shadow font-semibold ${(obj.defectStatus === "Исправлено" && "bg-green-800") || (obj.defectStatus === "В работе" && "bg-yellow-800") || (obj.defectStatus === "Не исправлено" && "bg-red-800")} ${index < items.length - 1 ? 'mb-3' : ''}`}>
               <h2 className="">{obj.title}</h2>
               <p>
-                Статус: <span className={`${(obj.status === "Исправлено" && "text-green-300") || (obj.status === "В работе" && "text-yellow-300") || (obj.status === "Не исправлено" && "text-red-300")}`}>{obj.status}</span>
+                Статус: <span className={`${(obj.defectStatus === "Исправлено" && "text-green-300") || (obj.defectStatus === "В работе" && "text-yellow-300") || (obj.defectStatus === "Не исправлено" && "text-red-300")}`}>{obj.defectStatus}</span>
               </p>
             </div>
           </Link>
