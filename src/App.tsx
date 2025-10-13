@@ -1,3 +1,4 @@
+import Dashboard from "./components/Dashboard";
 import DefectsPage from "./components/DefectsPage";
 import FullDefectPage from "./components/FullDefectPage";
 import NewDefectPage from "./components/NewDefectPage";
@@ -9,6 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="" element={<SidebarLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="defects" element={<DefectsPage />} />
           <Route path="defects/2" element={<FullDefectPage />} />
           <Route path="defects/newDefect" element={<NewDefectPage />} />

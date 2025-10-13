@@ -12,8 +12,11 @@ const SidebarLayout: React.FC = () => {
           <h2 className="font-bold text-lg mb-5">Система Контроля</h2>
           <nav className="flex flex-col">
             <ul className="space-y-1">
-              <Link to={"defects"}>
-                <li className="hover:underline cursor-pointer text-lg">Дефекты</li>
+              <Link to={"dashboard"}>
+                <li className="hover:underline cursor-pointer text-lg">Дашборд</li>
+              </Link>
+              <Link to={"projects"}>
+                <li className="hover:underline cursor-pointer text-lg">Проекты</li>
               </Link>
               <Link to={"reports"}>
                 <li className="hover:underline cursor-pointer text-lg">Отчеты</li>

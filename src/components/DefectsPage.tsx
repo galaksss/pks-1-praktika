@@ -3,6 +3,7 @@ import { selectDefectsData } from "../redux/defectsSlice";
 import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
   const { items } = useAppSelector(selectDefectsData);
+
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
@@ -27,12 +28,21 @@ const DefectsPage: React.FC = () => {
       </div>
       <div className="mt-5">
         {items.map((obj, index) => (
-          <Link to={`/defects/${obj.id}`}>
-            <div className={`border p-4 rounded shadow font-semibold ${(obj.defectStatus === "Исправлено" && "bg-green-800") || (obj.defectStatus === "В работе" && "bg-yellow-800") || (obj.defectStatus === "Не исправлено" && "bg-red-800")} ${index < items.length - 1 ? 'mb-3' : ''}`}>
-              <h2 className="">{obj.title}</h2>
-              <p>
-                Статус: <span className={`${(obj.defectStatus === "Исправлено" && "text-green-300") || (obj.defectStatus === "В работе" && "text-yellow-300") || (obj.defectStatus === "Не исправлено" && "text-red-300")}`}>{obj.defectStatus}</span>
-              </p>
+          <Link to={`/projects/defects/${obj.id}`}>
+            <div className={`border p-4 rounded shadow font-semibold ${(obj.priority === "Низкий" && "bg-green-800") || (obj.priority === "Средний" && "bg-yellow-700") || (obj.priority === "Высокий" && "bg-orange-800") || (obj.priority === "КРИТИЧЕСКИЙ" && "bg-red-900")} ${index < items.length - 1 ? "mb-3" : ""}`}>
+              <div className="wrapper relative">
+                  <h2 className="">{obj.title}</h2>
+                  <p className="font-normal">{obj.description}</p>
+                  <p>
+                    <span className={`absolute right-0 top-6 ${(obj.status === "Исправлено" && "text-green-300") || (obj.status === "В работе" && "text-yellow-300") || (obj.status === "Не исправлено" && "text-red-300")}`}>{obj.status}</span>
+                  </p>
+                  <p>
+                    Приоритет: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
+                  </p>
+                  {/* <p>
+                    Cрок:<span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
+                  </p> */}
+              </div>
             </div>
           </Link>
         ))}

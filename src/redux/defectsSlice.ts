@@ -1,11 +1,11 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import type { RootState } from "./store";
 
 interface Defect {
   title: string;
   description: string;
-  defectStatus: DefectStatus;
-  priorityStatus: PriorityStatus;
+  status: DefectStatus;
+  priority: PriorityStatus;
   id: number;
 }
 
@@ -21,74 +21,82 @@ export enum FetchStatus {
   ERROR = 'error'
 }
 
-enum PriorityStatus {
+
+export enum PriorityStatus {
   LOW = 'Низкий',
   MEDIUM = 'Средний',
-  HIGH = 'Высокий'
+  HIGH = 'Высокий',
+  CRITICAL = 'КРИТИЧЕСКИЙ'
 }
 
-enum DefectStatus {
-  Unresolved = "Не исправлено",
-  InProgress = "В работе",
-  Resolved = "Исправлено"
+export enum DefectStatus {
+  UNRESOLVED = "Не исправлено",
+  IN_PROGRESS = "В работе",
+  RESOLVED = "Исправлено"
 }
+// export const STATUS_LABELS = {
+//   [DefectStatus.NEW]: 'Не исправлено',
+//   [DefectStatus.IN_PROGRESS]: 'В работе',
+//   [DefectStatus.RESOLVED]: 'Исправлено',
+//   [DefectStatus.CANCELLED]: 'Отменено'
+// } as const;
 
 const initialState: StateType = {
   items: [
-  {
-    title: "Протечка на крыше",
-    description: "Во время дождя наблюдается протекание через шов между листами кровли.",
-    defectStatus: DefectStatus.Unresolved,
-    priorityStatus: PriorityStatus.HIGH,
-    id: 1
+    {
+      title: "Протечка на крыше",
+      description: "Во время дождя наблюдается протекание через шов между листами кровли.",
+      status: DefectStatus.UNRESOLVED,
+      priority: PriorityStatus.LOW,
+      id: 1
   },
   {
     title: "Трещина на стене в коридоре",
     description: "Вертикальная трещина длиной около 30 см рядом с дверным проёмом.",
-    defectStatus: DefectStatus.InProgress,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.IN_PROGRESS,
+    priority: PriorityStatus.HIGH,
     id: 2
   },
   {
     title: "Неплотно закрывается окно",
     description: "Оконная створка на 2-м этаже не прилегает, пропускает воздух.",
-    defectStatus: DefectStatus.Unresolved,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.UNRESOLVED,
+    priority: PriorityStatus.CRITICAL,
     id: 3
   },
   {
     title: "Неровная плитка в ванной комнате",
     description: "Одна из плиток выступает на 5 мм, требуется переукладка.",
-    defectStatus: DefectStatus.Resolved,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.RESOLVED,
+    priority: PriorityStatus.MEDIUM,
     id: 4
   },
   {
     title: "Сбой в электропроводке",
     description: "При включении света в коридоре происходит короткое замыкание.",
-    defectStatus: DefectStatus.InProgress,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.IN_PROGRESS,
+    priority: PriorityStatus.HIGH,
     id: 5
   },
   {
     title: "Отсутствует маркировка аварийного выхода",
     description: "На 3-м этаже не установлена табличка и подсветка выхода.",
-    defectStatus: DefectStatus.Unresolved,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.UNRESOLVED,
+    priority: PriorityStatus.LOW,
     id: 6
   },
   {
     title: "Повреждена отделка потолка",
     description: "Обнаружено вздутие краски на потолке после высыхания штукатурки.",
-    defectStatus: DefectStatus.Resolved,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.RESOLVED,
+    priority: PriorityStatus.CRITICAL,
     id: 7
   },
   {
     title: "Неправильный уклон водостока",
     description: "Вода застаивается в лотке, требуется корректировка наклона.",
-    defectStatus: DefectStatus.InProgress,
-    priorityStatus: PriorityStatus.HIGH,
+    status: DefectStatus.IN_PROGRESS,
+    priority: PriorityStatus.CRITICAL,
     id: 8
 
   }
@@ -109,6 +117,10 @@ const defectsSlice = createSlice({
     builder
     .addCase
   }
+})
+
+const fetchDefects = createAsyncThunk("defects/fetchDefetcs",async params => {
+
 })
 
 export const selectDefectsData = (state: RootState) => state.defects
