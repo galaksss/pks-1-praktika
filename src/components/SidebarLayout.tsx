@@ -7,7 +7,7 @@ const SidebarLayout: React.FC = () => {
 
   return (
     <div className="">
-      <aside className="h-screen fixed w-52 bg-blue-900 p-4 flex flex-col justify-between items-center">
+      <aside className="h-screen fixed w-52 bg-gray-900 p-4 flex flex-col justify-between items-center">
         <div className="">
           <h2 className="font-bold text-lg mb-5">Система Контроля</h2>
           <nav className="flex flex-col">
