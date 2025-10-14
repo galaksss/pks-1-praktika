@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
-import { selectDefectsData } from "../redux/defectsSlice";
+import { Link, useParams } from "react-router-dom";
+import { selectProjectsData } from "../redux/projectsSlice";
 import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
-  const { projects } = useAppSelector(selectDefectsData);
-
+  const { projects } = useAppSelector(selectProjectsData);
+  
+  const { id } = useParams<{id: string}>();
+  console.log(id)
+  const project = projects.find((project) => project.id === id);
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
@@ -27,9 +30,10 @@ const DefectsPage: React.FC = () => {
         </div>
       </div>
       <div className="mt-5">
-        {items.map((obj, index) => (
+        { 
+        project && project.defects.map((obj, index) => (
           <Link to={`/projects/defects/${obj.id}`}>
-            <div className={`border p-4 rounded shadow font-semibold ${(obj.priority === "Низкий" && "bg-green-800") || (obj.priority === "Средний" && "bg-yellow-700") || (obj.priority === "Высокий" && "bg-orange-800") || (obj.priority === "КРИТИЧЕСКИЙ" && "bg-red-900")} ${index < items.length - 1 ? "mb-3" : ""}`}>
+            <div className={`border p-4 rounded shadow font-semibold ${(obj.priority === "Низкий" && "bg-green-800") || (obj.priority === "Средний" && "bg-yellow-700") || (obj.priority === "Высокий" && "bg-orange-800") || (obj.priority === "КРИТИЧЕСКИЙ" && "bg-red-900")} ${index < project.defects.length - 1 ? "mb-3" : ""}`}>
               <div className="wrapper relative">
                   <h2 className="">{obj.title}</h2>
                   <p className="font-normal">{obj.description}</p>

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import defects from './defectsSlice';
+import projects from './projectsSlice'
 import { useDispatch, useSelector, type TypedUseSelectorHook } from "react-redux";
 export const store = configureStore({
   reducer: {
-  defects
+  projects
   }
 })
 
