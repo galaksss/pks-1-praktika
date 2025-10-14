@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { selectDefectsData } from "../redux/defectsSlice";
 import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
-  const { items } = useAppSelector(selectDefectsData);
+  const { projects } = useAppSelector(selectDefectsData);
 
   return (
     <div className="p-4">

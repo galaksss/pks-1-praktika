@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Projects: React.FC = () => {
+  
   const projects = [
     {
       id: "1",
@@ -269,9 +270,10 @@ const Projects: React.FC = () => {
                 </div>
 
                 <p className="text-gray-200 mb-2">{project.description}</p>
-                <p className="text-gray-300 text-sm mb-4">📍 {project.address}</p>
 
-                <div className="flex justify-around text-sm">
+              </div>
+                <p className="text-gray-300 text-sm mb-4">📍 {project.address}</p>
+                <div className="flex justify-around text-sm mt-5">
                   <div>
                     <span className="text-yellow-500 font-semibold">Дефекты: </span>
                     <span className="text-yellow-500 font-semibold">{project.defectCount}</span>
@@ -281,7 +283,6 @@ const Projects: React.FC = () => {
                     <span className="text-red-600 font-bold">{project.criticalDefects}</span>
                   </div>
                 </div>
-              </div>
 
               <div className="relative min-h-12 mt-5 border-t border-gray-300 pt-2 pb-2 flex items-center justify-center">
                 <span className="absolute bottom-1 text-cyan-400 font-semibold mt-4 group-hover:scale-105 duration-300">Посмотреть дефекты →</span>

@@ -29,10 +29,10 @@ const SidebarLayout: React.FC = () => {
         <Link to={"profile/id"}>
           <div className="relative mb-5 mr-3">
             <div onMouseEnter={() => setShowTooltip(true)} onMouseLeave={() => setShowTooltip(false)} className="flex items-center">
+            <div className={`absolute bottom-6.5 left-1/2 transform -translate-x-1/2 mt-1 bg-gray-700 text-white text-xs rounded px-2 py-1 shadow-lg whitespace-nowrap z-10 transition-opacity duration-300 ${showTooltip ? "opacity-100" : "opacity-0"}`}>Профиль</div>
               <img src="/user-icon.png" alt="" className="w-7" />
               <h3 className="ml-1">Иван (Инженер)</h3>
             </div>
-            <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-1 bg-gray-700 text-white text-xs rounded px-2 py-1 shadow-lg whitespace-nowrap z-10 transition-opacity duration-300 ${showTooltip ? "opacity-100" : "opacity-0"}`}>Профиль</div>
           </div>
         </Link>
         :
