@@ -7,15 +7,15 @@ const Dashboard: React.FC = () => {
       <h2 className="text-3xl font-bold">Общая статистика</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="flex items-center flex-col bg-blue-800 p-6 rounded-lg shadow-sm">
-          <h3 className="text-2xl font-semibold">Всего проектов</h3>
+          <h3 className="text-xl font-semibold">Всего проектов</h3>
           <p className="text-4xl font-bold">3</p>
         </div>
         <div className="flex items-center flex-col bg-yellow-700 p-6 rounded-lg shadow-sm">
-          <h3 className="text-2xl font-semibold">Активные дефекты</h3>
+          <h3 className="text-xl font-semibold">Активные дефекты</h3>
           <p className="text-4xl font-bold">4</p>
         </div>
         <div className="flex items-center flex-col bg-red-800 p-6 rounded-lg shadow-sm">
-          <h3 className="text-2xl font-semibold">Критические</h3>
+          <h3 className="text-xl font-semibold">Критические дефекты</h3>
           <p className="text-4xl font-bold">1</p>
         </div>
         <div className="flex items-center flex-col bg-green-700 p-6 rounded-lg shadow-sm">
@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
       </div>
         <h2 className="text-3xl font-bold mt-12">Общие показатели</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-fit">
-        <div className="bg-slate-700 p-6 rounded-lg shadow-sm">
+        <div className="border border-slate-500 bg-slate-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold mb-4 flex justify-center">Статусы дефектов</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="bg-slate-700 p-6 rounded-lg shadow-sm">
+        <div className="border border-slate-500 bg-slate-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold mb-4">Приоритеты дефектов</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">

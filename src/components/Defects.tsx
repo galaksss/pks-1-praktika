@@ -33,8 +33,9 @@ const DefectsPage: React.FC = () => {
               <div className="wrapper relative">
                   <h2 className="">{obj.title}</h2>
                   <p className="font-normal">{obj.description}</p>
+                  <button className="absolute bottom-12.5 right-0 bg-blue-600 py-1 px-2 rounded-full text-xs cursor-pointer hover:scale-105 transition-transform duration-300">Редактировать</button>
                   <p>
-                    <span className={`absolute right-0 top-6 ${(obj.status === "Исправлено" && "text-green-300") || (obj.status === "В работе" && "text-yellow-300") || (obj.status === "Не исправлено" && "text-red-300")}`}>{obj.status}</span>
+                    <span className={`absolute right-1 bottom-0 ${(obj.status === "Исправлено" && "text-green-300") || (obj.status === "В работе" && "text-yellow-300") || (obj.status === "Не исправлено" && "text-red-300")}`}>{obj.status}</span>
                   </p>
                   <p>
                     Приоритет: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
