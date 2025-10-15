@@ -32,7 +32,7 @@ const DefectsPage: React.FC = () => {
       <div className="mt-5">
         { 
         project && project.defects.map((obj, index) => (
-          <Link to={`/projects/defects/${obj.id}`}>
+          <Link to={`/projects/:id/defects/${obj.id}/fullDefect`}>
             <div className={`border p-4 rounded shadow font-semibold ${(obj.priority === "Низкий" && "bg-green-800") || (obj.priority === "Средний" && "bg-yellow-700") || (obj.priority === "Высокий" && "bg-orange-800") || (obj.priority === "КРИТИЧЕСКИЙ" && "bg-red-900")} ${index < project.defects.length - 1 ? "mb-3" : ""}`}>
               <div className="wrapper relative">
                   <h2 className="">{obj.title}</h2>

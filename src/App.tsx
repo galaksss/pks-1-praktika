@@ -14,8 +14,8 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="projects" element={<Projects />} />
           <Route path="projects/:id/defects" element={<Defects />} />
-          <Route path="fullDefect" element={<FullDefect />} />
-          <Route path="newDefect" element={<NewDefect />} />
+          <Route path="projects/:id/defects/:id/fullDefect" element={<FullDefect />} />
+          <Route path="projects/:id/defects/newDefect" element={<NewDefect />} />
           <Route path="reports" element={<Reports />} />
         </Route>
       </Routes>

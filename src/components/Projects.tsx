@@ -271,8 +271,8 @@ const Projects: React.FC = () => {
 
                 <p className="text-gray-200 mb-2">{project.description}</p>
 
-              </div>
                 <p className="text-gray-300 text-sm mb-4">📍 {project.address}</p>
+              </div>
                 <div className="flex justify-around text-sm mt-5">
                   <div>
                     <span className="text-yellow-500 font-semibold">Дефекты: </span>

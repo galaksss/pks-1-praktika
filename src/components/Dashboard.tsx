@@ -1,6 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { PriorityStatus, selectProjectsData } from "../redux/projectsSlice";
 
 const Dashboard: React.FC = () => {
+  const { projects } = useSelector(selectProjectsData);
+  let defectsCount = 0;
+  projects.forEach(project => {
+    defectsCount += project.defects.length;
+  });
+
+  let criticalsCount = 0;
+  let findedDefects = {};
+  let allDefects = [];
+  projects.forEach(project => {
+    let tempdef;
+      tempdef = project.defects.filter((defect) => {
+        return defect.priority === PriorityStatus.CRITICAL
+      })
+      allDefects.push(tempdef)
+    });
+    allDefects.forEach((arr) => criticalsCount += arr.length)
+    console.log(criticalsCount)
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-4xl font-bold flex justify-center">Главная панель</h1>
@@ -8,22 +28,22 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="flex items-center flex-col bg-blue-800 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Всего проектов</h3>
-          <p className="text-4xl font-bold">3</p>
+          <p className="text-4xl font-bold">{projects.length}</p>
         </div>
         <div className="flex items-center flex-col bg-yellow-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Активные дефекты</h3>
-          <p className="text-4xl font-bold">4</p>
+          <p className="text-4xl font-bold">{defectsCount}</p>
         </div>
         <div className="flex items-center flex-col bg-red-800 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Критические дефекты</h3>
-          <p className="text-4xl font-bold">1</p>
+          <p className="text-4xl font-bold">{criticalsCount}</p>
         </div>
         <div className="flex items-center flex-col bg-green-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Исправлено за неделю</h3>
           <p className="text-4xl font-bold">12</p>
         </div>
       </div>
-        <h2 className="text-3xl font-bold mt-12">Общие показатели</h2>
+      <h2 className="text-3xl font-bold mt-12">Общие показатели</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-fit">
         <div className="border border-slate-500 bg-slate-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold mb-4 flex justify-center">Статусы дефектов</h3>
