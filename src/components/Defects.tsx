@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router-dom";
-import { selectProjectsData } from "../redux/projectsSlice";
+import { selectProjectsData, type Project } from "../redux/projectsSlice";
 import { useAppSelector } from "../redux/store";
 const DefectsPage: React.FC = () => {
   const { projects } = useAppSelector(selectProjectsData);
   
   const { id } = useParams<{id: string}>();
   console.log(id)
-  const project = projects.find((project) => project.id === id);
+    const project: Project[] = projects.find((project) => project.id === id);
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
