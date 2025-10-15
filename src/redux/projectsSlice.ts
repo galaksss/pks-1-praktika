@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/tool
 import type { RootState } from "./store";
 
 
-interface Project {
+export interface Project {
   id: string;
   name: string;
   address: string;
@@ -14,7 +14,7 @@ interface Project {
   defects: Defect[];
 }
 
-interface Defect {
+export interface Defect {
   id: string;
   projectId: string;
   title: string;
