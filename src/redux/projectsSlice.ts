@@ -27,7 +27,7 @@ export interface Defect {
 }
 
 interface StateType {
-  projects: Project[];
+  projects: Project[]; 
   status: FetchStatus;
 }
 
