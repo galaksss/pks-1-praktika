@@ -1,11 +1,28 @@
-
+import { useParams } from "react-router-dom"
+import { useAppSelector } from "../redux/store"
+import { selectProjectsData } from "../redux/projectsSlice"
 const FullDefectPage: React.FC = () => {
+  const params = useParams()
+  const { projects } = useAppSelector(selectProjectsData)
+  const project = projects.find((project) => project.id === params.projectId)
+  if (!project) {
+      return <h1 className="p-70 text-5xl font-semibold">Проект не найден</h1>
+  }
+  const defect = project.defects.find((defect) => defect.id === params.defectId)
+  if (!defect) {
+      return <h1 className="p-70 text-5xl font-semibold">Дефект не найден</h1>
+  }
+  console.log(params)
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-2">Карточка дефекта</h1>
-      <p><span className="font-semibold">Название:</span> Протечка на крыше</p>
-      <p><span className="font-semibold">Описание:</span> Вода течет с крыши во время дождя</p>
-      <p><span className="font-semibold">Статус:</span> <span className="text-yellow-300">В работе</span></p>
+      <p><span className="font-semibold">Название: </span>{defect.title}</p>
+      <p><span className="font-semibold">Описание: </span> {defect.description}</p>
+      <p className="mb-3"><span className="font-semibold">Создан: </span> {defect.createdAt}</p>
+      <div className="border-t border-gray-300 mb-2.5 w-2/3"></div>
+      <p><span className="font-semibold">Статус: </span> <span className={`font-semibold ${(defect.status === "Исправлено" && "text-green-300") || (defect.status === "В работе" && "text-yellow-300") || (defect.status === "Не исправлено" && "text-red-400")}`}>{defect.status}</span></p>
+      <p><span className="font-semibold">Приоритет: </span> <span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-red-400") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>{defect.priority}</span></p>
+      <p><span className="font-semibold">Срок: </span><span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-red-400") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>до {defect.deadline}</span></p>
 
       <h1 className="text-xl mt-9 mb-5 font-bold">Комментарии</h1>
       <ul className="ml-6 space-y-3">

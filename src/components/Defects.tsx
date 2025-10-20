@@ -6,66 +6,45 @@ import { PriorityStatus } from "../redux/projectsSlice";
 const DefectsPage: React.FC = () => {
   const { projects } = useAppSelector(selectProjectsData);
   const [sortBy, setSortBy] = useState("priority");
+  const [searchValue, setSearchValue] = useState("");
   const { id } = useParams<{ id: string }>();
   const project = projects.find(project => project.id === id);
-
+  console.log(searchValue);
   const sortDefects = () => {
     if (!project) {
       return [];
     }
-    const defects = [...project.defects];
+    let defects = [...project.defects];
 
+    if (searchValue) {
+      defects = defects.filter(defect => defect.title.toLowerCase().includes(searchValue.toLowerCase()));
+    }
     if (sortBy === "priority") {
-      console.log('priority')
-
       const priorityOrder = {
         [PriorityStatus.CRITICAL]: 0,
         [PriorityStatus.HIGH]: 1,
         [PriorityStatus.MEDIUM]: 2,
         [PriorityStatus.LOW]: 3,
       };
-      return defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+      defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
     }
 
     if (sortBy === "status") {
-      console.log('status')
-
       const statusOrder = {
         [DefectStatus.UNRESOLVED]: 0,
         [DefectStatus.IN_PROGRESS]: 1,
         [DefectStatus.RESOLVED]: 2,
       };
-      return defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status])
+      defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
     }
 
-    if (sortBy === 'date') {
-      console.log('date')
-      return defects.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+    if (sortBy === "date") {
+      defects.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
     }
+    return defects;
   };
-  const sortedDefects = sortDefects()
+  const sortedDefects = sortDefects();
 
-  //   const sortedDefects = useMemo(() => {
-  //   if (!project) return [];
-
-  //   const defects = [...project.defects];
-
-  //   if (sortBy === "priority") {
-  //     const priorityOrder = { "КРИТИЧЕСКИЙ": 0, "Высокий": 1, "Средний": 2, "Низкий": 3 };
-  //     return defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-  //   }
-
-  //   if (sortBy === "status") {
-  //     const statusOrder = { "Не исправлено": 0, "В работе": 1, "Исправлено": 2 };
-  //     return defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
-  //   }
-
-  //   if (sortBy === "date") {
-  //     return defects.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-  //   }
-
-  //   return defects;
-  // }, [project, sortBy]);
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
@@ -76,7 +55,7 @@ const DefectsPage: React.FC = () => {
         </Link>
 
         <div className="">
-          <input placeholder="Найти дефект..." type="text" className="bg-gray-600 rounded w-130 px-3 py-1" />
+          <input onChange={event => setSearchValue(event.target.value)} placeholder="Найти дефект..." type="text" className="bg-gray-600 rounded w-130 px-3 py-1" />
         </div>
 
         <div className="font-semibold">
@@ -105,7 +84,7 @@ const DefectsPage: React.FC = () => {
                       Приоритет: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
                     </p>
                     <p>
-                      Cрок:<span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.deadline}</span>
+                      Срок: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>до {obj.deadline}</span>
                     </p>
                   </div>
                 </div>
