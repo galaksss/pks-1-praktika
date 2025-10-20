@@ -1,4 +1,9 @@
 function NewDefectPage() {
+
+  const saveNewDefect = () => {
+    
+  }
+
   return (
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Новый дефект</h1>
@@ -7,7 +12,7 @@ function NewDefectPage() {
         <div>
           <label className="block mb-1 font-semibold">Название дефекта</label>
           <input
-            type="text"
+            type="text" 
             placeholder="Например, Протечка крыши"
             className="w-full border p-2 rounded"
           />
@@ -50,6 +55,7 @@ function NewDefectPage() {
         </div>
 
         <button
+          onClick={saveNewDefect}
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
         >

@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="flex items-center flex-col bg-yellow-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Активные дефекты</h3>
-          <p className="text-4xl font-bold">{stats.unresolvedDefectsCount}</p>
+          <p className="text-4xl font-bold">{stats.unresolvedDefectsCount + stats.in_progressDefectsCount}</p>
         </div>
         <div className="flex items-center flex-col bg-red-800 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold">Критические дефекты</h3>
@@ -30,12 +30,12 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       <h2 className="text-3xl font-bold mt-12">Общие показатели</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-fit">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-150">
         <div className="border border-slate-500 bg-slate-700 p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold mb-4 flex justify-center">Статусы дефектов</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-red-500 font-medium">Не исправлено</span>
+              <span className="text-red-500 font-medium">Простаивают</span>
               <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full">{stats.unresolvedDefectsCount}</span>
             </div>
             <div className="flex items-center justify-between">
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
               <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">{stats.in_progressDefectsCount}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-green-400 font-medium">Исправлено</span>
+              <span className="text-green-400 font-medium">Исправлено за сегодня</span>
               <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">{stats.resolvedDefectsCount}</span>
             </div>
           </div>

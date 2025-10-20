@@ -20,9 +20,9 @@ const FullDefectPage: React.FC = () => {
       <p><span className="font-semibold">Описание: </span> {defect.description}</p>
       <p className="mb-3"><span className="font-semibold">Создан: </span> {defect.createdAt}</p>
       <div className="border-t border-gray-300 mb-2.5 w-2/3"></div>
-      <p><span className="font-semibold">Статус: </span> <span className={`font-semibold ${(defect.status === "Исправлено" && "text-green-300") || (defect.status === "В работе" && "text-yellow-300") || (defect.status === "Не исправлено" && "text-red-400")}`}>{defect.status}</span></p>
-      <p><span className="font-semibold">Приоритет: </span> <span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-red-400") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>{defect.priority}</span></p>
-      <p><span className="font-semibold">Срок: </span><span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-red-400") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>до {defect.deadline}</span></p>
+      <p><span className="font-semibold">Статус: </span> <span className={`font-semibold ${(defect.status === "Исправлено" && "text-green-300") || (defect.status === "В работе" && "text-yellow-300") || (defect.status === "Простаивает" && "text-red-400")}`}>{defect.status}</span></p>
+      <p><span className="font-semibold">Приоритет: </span> <span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-orange-500") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>{defect.priority}</span></p>
+      <p><span className="font-semibold">Срок: </span><span className={`font-semibold ${(defect.priority === "Низкий" && "text-green-300") || (defect.priority === "Средний" && "text-yellow-300") || (defect.priority === "Высокий" && "text-orange-500") || (defect.priority === "КРИТИЧЕСКИЙ" && "text-red-600")}`}>до {defect.deadline}</span></p>
 
       <h1 className="text-xl mt-9 mb-5 font-bold">Комментарии</h1>
       <ul className="ml-6 space-y-3">

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { PriorityStatus } from "../redux/projectsSlice";
 const DefectsPage: React.FC = () => {
   const { projects } = useAppSelector(selectProjectsData);
-  const [sortBy, setSortBy] = useState("priority");
+  const [sortBy, setSortBy] = useState("status");
   const [searchValue, setSearchValue] = useState("");
   const { id } = useParams<{ id: string }>();
   const project = projects.find(project => project.id === id);
@@ -19,13 +19,13 @@ const DefectsPage: React.FC = () => {
     if (searchValue) {
       defects = defects.filter(defect => defect.title.toLowerCase().includes(searchValue.toLowerCase()));
     }
+    const priorityOrder = {
+      [PriorityStatus.CRITICAL]: 0,
+      [PriorityStatus.HIGH]: 1,
+      [PriorityStatus.MEDIUM]: 2,
+      [PriorityStatus.LOW]: 3,
+    };
     if (sortBy === "priority") {
-      const priorityOrder = {
-        [PriorityStatus.CRITICAL]: 0,
-        [PriorityStatus.HIGH]: 1,
-        [PriorityStatus.MEDIUM]: 2,
-        [PriorityStatus.LOW]: 3,
-      };
       defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
     }
 
@@ -35,6 +35,7 @@ const DefectsPage: React.FC = () => {
         [DefectStatus.IN_PROGRESS]: 1,
         [DefectStatus.RESOLVED]: 2,
       };
+      defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority])
       defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
     }
 
@@ -47,7 +48,7 @@ const DefectsPage: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Дефекты</h1>
+      <h1 className="text-xl font-bold mb-4">Список дефектов ({project?.name})</h1>
 
       <div className="flex justify-between">
         <Link to={"newDefect"}>
@@ -61,8 +62,8 @@ const DefectsPage: React.FC = () => {
         <div className="font-semibold">
           <label className="mr-1">Сортировка</label>
           <select onChange={option => setSortBy(option.target.value)} className="bg-gray-600 rounded cursor-pointer">
-            <option value="priority">по приоритету</option>
             <option value="status">по статусу</option>
+            <option value="priority">по приоритету</option>
             <option value="date">по срокам</option>
           </select>
         </div>
@@ -78,13 +79,13 @@ const DefectsPage: React.FC = () => {
                     <p className="font-normal">{obj.description}</p>
                     <button className="absolute bottom-12.5 right-0 bg-blue-600 py-1 px-2 rounded-full text-xs cursor-pointer hover:scale-105 transition-transform duration-300">Редактировать</button>
                     <p>
-                      <span className={`rounded-full py-1 px-2 absolute right-0 bottom-0 ${(obj.status === "Исправлено" && "bg-green-200 text-green-600") || (obj.status === "В работе" && "bg-yellow-100 text-yellow-600") || (obj.status === "Не исправлено" && "bg-red-200 text-red-600")}`}>{obj.status}</span>
+                      <span className={`rounded-full py-1 px-2 absolute right-0 bottom-0 ${(obj.status === "Исправлено" && "bg-green-200 text-green-600") || (obj.status === "В работе" && "bg-yellow-100 text-yellow-600") || (obj.status === "Простаивает" && "bg-red-200 text-red-600")}`}>{obj.status}</span>
                     </p>
                     <p>
-                      Приоритет: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
+                      Приоритет: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-orange-400") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>{obj.priority}</span>
                     </p>
                     <p>
-                      Срок: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-red-300") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>до {obj.deadline}</span>
+                      Срок: <span className={`${(obj.priority === "Низкий" && "text-green-300") || (obj.priority === "Средний" && "text-yellow-300") || (obj.priority === "Высокий" && "text-orange-400") || (obj.priority === "КРИТИЧЕСКИЙ" && "text-red-400")}`}>до {obj.deadline}</span>
                     </p>
                   </div>
                 </div>

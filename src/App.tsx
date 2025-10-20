@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Dashboard from "./components/Dashboard";
 import Defects from "./components/Defects";
 import FullDefect from "./components/FullDefect";
@@ -6,7 +7,14 @@ import Projects from "./components/Projects";
 import Reports from "./components/Reports";
 import SidebarLayout from "./components/SidebarLayout";
 import { Routes, Route } from "react-router-dom";
+import { useAppSelector } from "./redux/store";
+import { selectProjectsData } from "./redux/projectsSlice";
 function App() {
+  const projects = useAppSelector(selectProjectsData)
+  useEffect(() => {
+    const json = JSON.stringify(projects)
+    localStorage.setItem('projects', json)
+  }, [projects])
   return (
     <>
       <Routes>
