@@ -1,12 +1,71 @@
 import { Link, useParams } from "react-router-dom";
-import { selectProjectsData } from "../redux/projectsSlice";
+import { DefectStatus, selectProjectsData } from "../redux/projectsSlice";
 import { useAppSelector } from "../redux/store";
 import { useState } from "react";
+import { PriorityStatus } from "../redux/projectsSlice";
 const DefectsPage: React.FC = () => {
   const { projects } = useAppSelector(selectProjectsData);
-  const [ sortType, setSortType ] = useState("");
+  const [sortBy, setSortBy] = useState("priority");
   const { id } = useParams<{ id: string }>();
   const project = projects.find(project => project.id === id);
+
+  const sortDefects = () => {
+    if (!project) {
+      return [];
+    }
+    const defects = [...project.defects];
+
+    if (sortBy === "priority") {
+      console.log('priority')
+
+      const priorityOrder = {
+        [PriorityStatus.CRITICAL]: 0,
+        [PriorityStatus.HIGH]: 1,
+        [PriorityStatus.MEDIUM]: 2,
+        [PriorityStatus.LOW]: 3,
+      };
+      return defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    }
+
+    if (sortBy === "status") {
+      console.log('status')
+
+      const statusOrder = {
+        [DefectStatus.UNRESOLVED]: 0,
+        [DefectStatus.IN_PROGRESS]: 1,
+        [DefectStatus.RESOLVED]: 2,
+      };
+      return defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status])
+    }
+
+    if (sortBy === 'date') {
+      console.log('date')
+      return defects.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+    }
+  };
+  const sortedDefects = sortDefects()
+
+  //   const sortedDefects = useMemo(() => {
+  //   if (!project) return [];
+
+  //   const defects = [...project.defects];
+
+  //   if (sortBy === "priority") {
+  //     const priorityOrder = { "КРИТИЧЕСКИЙ": 0, "Высокий": 1, "Средний": 2, "Низкий": 3 };
+  //     return defects.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  //   }
+
+  //   if (sortBy === "status") {
+  //     const statusOrder = { "Не исправлено": 0, "В работе": 1, "Исправлено": 2 };
+  //     return defects.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+  //   }
+
+  //   if (sortBy === "date") {
+  //     return defects.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  //   }
+
+  //   return defects;
+  // }, [project, sortBy]);
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Дефекты</h1>
@@ -22,22 +81,16 @@ const DefectsPage: React.FC = () => {
 
         <div className="font-semibold">
           <label className="mr-1">Сортировка</label>
-          <select className="bg-gray-600 rounded cursor-pointer">
-            <option value="" onClick={setSortType("priority")}>
-              по приоритету
-            </option>
-            <option value="" onClick={setSortType("date")}>
-              по срокам
-            </option>
-            <option value="" onClick={setSortType("status")}>
-              по статусу
-            </option>
+          <select onChange={option => setSortBy(option.target.value)} className="bg-gray-600 rounded cursor-pointer">
+            <option value="priority">по приоритету</option>
+            <option value="status">по статусу</option>
+            <option value="date">по срокам</option>
           </select>
         </div>
       </div>
       <div className="mt-5">
-        {project ? (
-          project.defects.map((obj, index) => {
+        {project && sortedDefects ? (
+          sortedDefects.map((obj, index) => {
             return (
               <Link key={obj.id} to={`/projects/${project.id}/defects/${obj.id}/fullDefect`}>
                 <div className={`border p-4 rounded shadow font-semibold ${(obj.priority === "Низкий" && "bg-green-800") || (obj.priority === "Средний" && "bg-yellow-700") || (obj.priority === "Высокий" && "bg-orange-800") || (obj.priority === "КРИТИЧЕСКИЙ" && "bg-red-900")} ${index < project.defects.length - 1 ? "mb-3" : ""}`}>
