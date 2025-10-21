@@ -54,7 +54,6 @@ export enum DefectStatus {
 }
 
 const projects = getDataFromLS()
-
 const initialState: StateType = {
   projects,
   status: FetchStatus.LOADING
@@ -64,7 +63,7 @@ const initialState: StateType = {
 
 
 const projectsSlice = createSlice({
-  name: 'projects',
+  name: 'projectsSlice',
   initialState,
   reducers: {
     addDefect(state, action: PayloadAction<Defect[]>) {
@@ -81,7 +80,7 @@ const fetchProjects = createAsyncThunk("defects/fetchProjects",async params => {
 
 })
 
-export const selectProjectsData = (state: RootState) => state.projects
+export const selectProjectsData = (state: RootState) => state.projectsSlice.projects
 
 export const { addDefect } = projectsSlice.actions;
 

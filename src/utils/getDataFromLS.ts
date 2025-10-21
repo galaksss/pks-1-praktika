@@ -271,6 +271,7 @@ const getDataFromLS = () => {
       ],
     },
   ];
+  console.log(projects)
   return projects
 }
 

@@ -3,7 +3,7 @@ import { useAppSelector } from "../redux/store"
 import { selectProjectsData } from "../redux/projectsSlice"
 const FullDefectPage: React.FC = () => {
   const params = useParams()
-  const { projects } = useAppSelector(selectProjectsData)
+  const projects= useAppSelector(selectProjectsData)
   const project = projects.find((project) => project.id === params.projectId)
   if (!project) {
       return <h1 className="p-70 text-5xl font-semibold">Проект не найден</h1>

@@ -5,8 +5,7 @@ import { useAppSelector } from "../redux/store";
 
 const Projects: React.FC = () => {
   
-  const { projects } = useAppSelector(selectProjectsData);
-
+  const projects = useAppSelector(selectProjectsData);
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">

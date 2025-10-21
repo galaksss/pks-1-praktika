@@ -4,7 +4,7 @@ import { useAppSelector } from "../redux/store";
 import { useState } from "react";
 import { PriorityStatus } from "../redux/projectsSlice";
 const DefectsPage: React.FC = () => {
-  const { projects } = useAppSelector(selectProjectsData);
+  const projects = useAppSelector(selectProjectsData);
   const [sortBy, setSortBy] = useState("status");
   const [searchValue, setSearchValue] = useState("");
   const { id } = useParams<{ id: string }>();

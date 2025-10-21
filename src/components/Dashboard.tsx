@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectProjectsData } from "../redux/projectsSlice";
 const Dashboard: React.FC = () => {
 
-  const { projects } = useSelector(selectProjectsData)
+  const projects= useSelector(selectProjectsData)
   const stats = createStatsCalculator(projects)
   
   return (
