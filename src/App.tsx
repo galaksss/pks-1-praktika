@@ -11,10 +11,8 @@ import { useAppSelector } from "./redux/store";
 import { selectProjectsData } from "./redux/projectsSlice";
 function App() {
   const projects = useAppSelector(selectProjectsData);
-  console.log(projects, "1");
   useEffect(() => {
     const json = JSON.stringify(projects);
-    console.log(projects);
     localStorage.setItem("projects", json);
   }, [projects]);
   return (
